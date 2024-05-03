@@ -1,6 +1,10 @@
 # chat-manager
 This app handles chat management
 
+# Running Docker Image
+1. Run docker-compose.yml
+2. 
+
 # Starting the app
 
 1. Start up docker-compose-localstack.yml
@@ -15,7 +19,7 @@ This app handles chat management
 2. Publish the ports using:
    docker run -p 4566:4566 localstack/localstack   
 3. Run init-dynamodb-localstack.sh
-5. Run the tests
+4. Run the tests
 
 # Documentation
 

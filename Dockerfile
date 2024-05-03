@@ -1,17 +1,16 @@
 # Use an Ubuntu image
-FROM ubuntu:24.04
+FROM ubuntu:latest
 
 RUN apt-get update && \
     apt-get install -y curl &&\
-    apt install -y xdg-utils \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    apt install -y xdg-utils
 
 # Install OpenJDK, AWS CLI, and LocalStack dependencies
 RUN apt-get update && \
-    apt-get install -y openjdk-17-jdk curl python3 python3-pip groff less zip iputils-ping python3-venv \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    apt-get install -y openjdk-17-jdk curl python3 python3-pip groff less zip iputils-ping python3-venv
+    # && \
+    # apt-get clean && \
+    # rm -rf /var/lib/apt/lists/*
 
 # Create a Python virtual environment and install AWS CLI using pip3
 RUN python3 -m venv /opt/venv && \

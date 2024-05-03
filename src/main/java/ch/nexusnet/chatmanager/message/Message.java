@@ -3,7 +3,7 @@ package ch.nexusnet.chatmanager.message;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 
 @Getter
 @Setter
@@ -11,13 +11,13 @@ public class Message {
 
     private String id;
 
-    @NotEmpty
+    @NotBlank
     private String content;
 
-    @NotEmpty
+    @NotBlank
     private String sender;
 
-    @NotEmpty
+    @NotBlank
     private String receiver;
 
     private String timestamp;
