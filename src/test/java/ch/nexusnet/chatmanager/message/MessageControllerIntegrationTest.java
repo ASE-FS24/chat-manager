@@ -54,8 +54,8 @@ class MessageControllerIntegrationTest {
     @Test
     void sendMessageNoExistingChat() throws Exception {
         Message message = new Message();
-        message.setSenderId("sender");
-        message.setReceiverId("receiver");
+        message.setSender("sender");
+        message.setReceiver("receiver");
         message.setContent("Hello");
 
         mockMvc.perform(post("/messages")
@@ -67,8 +67,8 @@ class MessageControllerIntegrationTest {
     @Test
     void sendMessageExistingChat() throws Exception {
         Message message = new Message();
-        message.setSenderId("participant1");
-        message.setReceiverId("participant2");
+        message.setSender("participant1");
+        message.setReceiver("participant2");
         message.setContent("Hello");
 
         mockMvc.perform(post("/messages")
@@ -80,8 +80,8 @@ class MessageControllerIntegrationTest {
     @Test
     void sendMessageSameParticipant() throws Exception {
         Message message = new Message();
-        message.setSenderId("participant1");
-        message.setReceiverId("participant1");
+        message.setSender("participant1");
+        message.setReceiver("participant1");
         message.setContent("Hello");
 
         mockMvc.perform(post("/messages")

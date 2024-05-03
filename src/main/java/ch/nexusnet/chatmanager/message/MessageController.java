@@ -26,7 +26,7 @@ public class MessageController {
     @ApiResponse(responseCode = "201", description = "Message Sent", content = @Content(schema = @Schema(implementation = Chat.class)))
     public ResponseEntity<Chat> sendMessage(@RequestBody @Valid Message message) {
         Chat chat = messageService.sendMessage(message);
-        URI location = URI.create(String.format("/chats/get?participant1=%s&participant2=%s", message.getSenderId(), message.getReceiverId()));
+        URI location = URI.create(String.format("/chats/get?participant1=%s&participant2=%s", message.getSender(), message.getReceiver()));
         return ResponseEntity.created(location).body(chat);
     }
 }
