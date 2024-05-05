@@ -91,4 +91,27 @@ class SystemTest {
 
         mockMvc.perform(get("/chats/" + user1 + "/" + user2)).andExpect(status().isOk());
     }
+
+    @Test
+    void systemTest2() throws Exception {
+        String user1 = "TestUser";
+        String user2 = "GreenLeader";
+
+        mockMvc.perform(get("/chats/" + user1 + "/" + user2))
+                .andExpect(status().isNotFound());
+
+        Message message = new Message();
+        message.setSender(user1);
+        message.setReceiver(user2);
+        message.setContent("Hello");
+
+        mockMvc.perform(post("/messages")
+                        .contentType("application/json")
+                        .content(toJson(message)))
+                .andExpect(status().isCreated());
+
+        mockMvc.perform(get("/chats/" + user1)).andExpect(status().isOk());
+
+        mockMvc.perform(get("/chats/" + user1 + "/" + user2)).andExpect(status().isOk());
+    }
 }

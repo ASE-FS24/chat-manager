@@ -52,9 +52,17 @@ public class MessageServiceImpl implements MessageService{
     }
 
     private Chat createNewChat(Message message) {
+        String participant1 = message.getSender();
+        String participant2 = message.getReceiver();
+        if (participant1.compareTo(participant2) > 0) {
+            String temp = participant1;
+            participant1 = participant2;
+            participant2 = temp;
+        }
+
         Chat newChat = new Chat();
-        newChat.setParticipant1(message.getSender());
-        newChat.setParticipant2(message.getReceiver());
+        newChat.setParticipant1(participant1);
+        newChat.setParticipant2(participant2);
         newChat.addMessage(message);
         return chatRepository.saveChat(newChat);
     }
