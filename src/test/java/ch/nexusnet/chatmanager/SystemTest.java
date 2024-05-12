@@ -54,8 +54,8 @@ class SystemTest {
                 .andExpect(status().isNotFound());
 
         Message message = new Message();
-        message.setSenderId(user1);
-        message.setReceiverId(user2);
+        message.setSender(user1);
+        message.setReceiver(user2);
         message.setContent("Hello");
 
         mockMvc.perform(post("/messages")
@@ -68,8 +68,8 @@ class SystemTest {
         mockMvc.perform(get("/chats/" + user2 + "/" + user1)).andExpect(status().isOk());
 
         message = new Message();
-        message.setSenderId(user1);
-        message.setReceiverId(user2);
+        message.setSender(user1);
+        message.setReceiver(user2);
         message.setContent("I am user1");
 
         mockMvc.perform(post("/messages")
@@ -80,14 +80,37 @@ class SystemTest {
         mockMvc.perform(get("/chats/" + user1 + "/" + user2)).andExpect(status().isOk());
 
         message = new Message();
-        message.setSenderId(user2);
-        message.setReceiverId(user1);
+        message.setSender(user2);
+        message.setReceiver(user1);
         message.setContent("Hello, I am user2");
 
         mockMvc.perform(post("/messages")
                 .contentType("application/json")
                 .content(toJson(message)))
                 .andExpect(status().isCreated());
+
+        mockMvc.perform(get("/chats/" + user1 + "/" + user2)).andExpect(status().isOk());
+    }
+
+    @Test
+    void systemTest2() throws Exception {
+        String user1 = "TestUser";
+        String user2 = "GreenLeader";
+
+        mockMvc.perform(get("/chats/" + user1 + "/" + user2))
+                .andExpect(status().isNotFound());
+
+        Message message = new Message();
+        message.setSender(user1);
+        message.setReceiver(user2);
+        message.setContent("Hello");
+
+        mockMvc.perform(post("/messages")
+                        .contentType("application/json")
+                        .content(toJson(message)))
+                .andExpect(status().isCreated());
+
+        mockMvc.perform(get("/chats/" + user1)).andExpect(status().isOk());
 
         mockMvc.perform(get("/chats/" + user1 + "/" + user2)).andExpect(status().isOk());
     }

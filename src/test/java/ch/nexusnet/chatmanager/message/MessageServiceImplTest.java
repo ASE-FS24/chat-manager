@@ -40,8 +40,8 @@ class MessageServiceImplTest {
         when(chatRepository.saveChat(any(Chat.class))).thenReturn(expectedChat);
 
         Message message = new Message();
-        message.setReceiverId(userId1);
-        message.setSenderId(userId2);
+        message.setReceiver(userId1);
+        message.setSender(userId2);
         message.setContent("Hello");
 
         expectedChat.setMessages(new ArrayList<>());
@@ -56,8 +56,8 @@ class MessageServiceImplTest {
 
         Message savedMessage = chat.getMessages().get(0);
         assertEquals(message.getContent(), savedMessage.getContent());
-        assertEquals(message.getSenderId(), savedMessage.getSenderId());
-        assertEquals(message.getReceiverId(), savedMessage.getReceiverId());
+        assertEquals(message.getSender(), savedMessage.getSender());
+        assertEquals(message.getReceiver(), savedMessage.getReceiver());
         assertNotNull(savedMessage.getTimestamp());
         assertNotNull(savedMessage.getId());
     }
@@ -75,8 +75,8 @@ class MessageServiceImplTest {
         when(chatRepository.saveChat(any(Chat.class))).thenReturn(expectedChat);
 
         Message message = new Message();
-        message.setReceiverId(userId1);
-        message.setSenderId(userId2);
+        message.setReceiver(userId1);
+        message.setSender(userId2);
         message.setContent("Hello");
 
         expectedChat.setMessages(new ArrayList<>());
@@ -91,8 +91,8 @@ class MessageServiceImplTest {
 
         Message savedMessage = chat.getMessages().get(0);
         assertEquals(message.getContent(), savedMessage.getContent());
-        assertEquals(message.getSenderId(), savedMessage.getSenderId());
-        assertEquals(message.getReceiverId(), savedMessage.getReceiverId());
+        assertEquals(message.getSender(), savedMessage.getSender());
+        assertEquals(message.getReceiver(), savedMessage.getReceiver());
         assertNotNull(savedMessage.getTimestamp());
         assertNotNull(savedMessage.getId());
     }
@@ -100,8 +100,8 @@ class MessageServiceImplTest {
     @Test
     void Send_message_to_self(){
         Message message = new Message();
-        message.setReceiverId("user1");
-        message.setSenderId("user1");
+        message.setReceiver("user1");
+        message.setSender("user1");
 
         assertThrows(ChatWithSameUserException.class, () -> messageService.sendMessage(message));
     }
